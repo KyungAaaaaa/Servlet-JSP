@@ -11,13 +11,9 @@
         <title>Title</title>
     </head>
     <body>
-        <%
-            String _cnt = request.getParameter("cnt");
-            int cnt = 10;
-            if (_cnt != null && !_cnt.equals(""))
-                cnt = Integer.parseInt(_cnt);
-            for (int i = 0; i < cnt; i++) {%>
-        안녕!!<br>
-        <%}%>
+
+        <%=request.getAttribute("result")%> 입니다.<br>
+
+
     </body>
 </html>
