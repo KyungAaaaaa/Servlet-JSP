@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 @WebServlet(urlPatterns = "/calculator")
 public class Calculator extends HttpServlet {
@@ -20,6 +21,7 @@ public class Calculator extends HttpServlet {
         String dot = request.getParameter("dot");
         String exp = "";
         Cookie[] cookies = request.getCookies();
+        ArrayList<String> array = new ArrayList<>();
         if (cookies != null)
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("exp")) {
@@ -35,8 +37,8 @@ public class Calculator extends HttpServlet {
                 e.printStackTrace();
             }
 
-        }else if(op != null && op.equals("C")){
-            exp="";
+        } else if (op != null && op.equals("C")) {
+            exp = "";
 
         } else {
             exp += (value == null) ? "" : value;
@@ -44,7 +46,7 @@ public class Calculator extends HttpServlet {
             exp += (dot == null) ? "" : dot;
         }
         Cookie expCookie = new Cookie("exp", exp);
-        if(op != null && op.equals("C")) expCookie.setMaxAge(0);
+        if (op != null && op.equals("C")) expCookie.setMaxAge(0);
         expCookie.setPath("/");
         response.addCookie(expCookie);
         response.sendRedirect("calculator");
@@ -55,6 +57,7 @@ public class Calculator extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
+
 
         String exp = "0";
         Cookie[] cookies = request.getCookies();
