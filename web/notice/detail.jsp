@@ -1,56 +1,5 @@
-<%@ page import="java.sql.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%
-    Connection con = null;
-
-    String server = "localhost"; // MySQL 서버 주소
-    String database = "todagtodag"; // MySQL DATABASE 이름
-    String user_name = "root"; //  MySQL 서버 아이디
-    String password = "123456"; // MySQL 서버 비밀번호
-
-    // 1.드라이버 로딩
-    try {
-        Class.forName("com.mysql.jdbc.Driver");
-    } catch (ClassNotFoundException e) {
-        System.err.println(" !! <JDBC error> Driver load error: " + e.getMessage());
-        e.printStackTrace();
-    }
-
-    // 2.연결
-    try {
-        con = DriverManager.getConnection("jdbc:mysql://" + server + "/" + database + "?useSSL=false", user_name, password);
-        System.out.println("connect.");
-    } catch (SQLException e) {
-        System.err.println("con error:" + e.getMessage());
-        e.printStackTrace();
-    }
-
-    int num = Integer.parseInt(request.getParameter("id"));
-    String query = "Select * from notice where num=?;";
-    PreparedStatement pstmt = con.prepareStatement(query);
-    pstmt.setInt(1, num);
-    ResultSet rs = pstmt.executeQuery();
-    rs.next();
-
-
-    String subject = rs.getString("subject");
-    String date = rs.getString("regist_day");
-    String id = rs.getString("id");
-    int hit = rs.getInt("hit");
-    String content = rs.getString("content");
-
-    // 3.해제
-    try {
-        if (rs != null)
-            rs.close();
-        if (pstmt != null)
-            pstmt.close();
-        if (con != null)
-            con.close();
-    } catch (SQLException e) {
-    }
-%>
 <!DOCTYPE html>
 <html>
 
@@ -202,21 +151,21 @@
                                 <tr>
                                     <th>제목</th>
                                     <td class="text-align-left text-indent text-strong text-orange" colspan="3">
-                                        <%=subject%>
+                                        <%=request.getAttribute("subject")%>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>작성일</th>
                                     <td class="text-align-left text-indent" colspan="3">
-                                        <%=date%>
+                                        <%=request.getAttribute("date")%>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>작성자</th>
-                                    <td> <%=id%>
+                                    <td><%=request.getAttribute("id")%>
                                     </td>
                                     <th>조회수</th>
-                                    <td> <%=hit%>
+                                    <td><%=request.getAttribute("hit")%>
                                     </td>
                                 </tr>
                                 <tr>
@@ -225,7 +174,7 @@
                                 </tr>
                                 <tr class="content">
                                     <td colspan="4">
-                                        <%=content%>
+                                        <%=request.getAttribute("content")%>
                                     </td>
                                 </tr>
                             </tbody>

@@ -217,7 +217,7 @@
                                     <td><%=rs.getInt("num")%>
                                     </td>
                                     <td class="title indent text-align-left"><a
-                                            href="detail.jsp?id=<%=rs.getInt("num")%>"><%=rs.getString("subject")%>></a>
+                                            href="detail?id=<%=rs.getInt("num")%>"><%=rs.getString("subject")%>></a>
                                     </td>
                                     <td><%=rs.getString("id")%>
                                     </td>
