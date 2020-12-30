@@ -1,5 +1,7 @@
 package controller;
 
+import entity.Notice;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,6 +55,8 @@ public class NoticeDetailController extends HttpServlet {
             int hit = rs.getInt("hit");
             String content = rs.getString("content");
 
+            Notice notice = new Notice(subject, date, id, hit, content);
+            request.setAttribute("notice", notice);
             // 3.해제
             try {
                 if (rs != null)

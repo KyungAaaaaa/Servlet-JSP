@@ -151,21 +151,21 @@
                                 <tr>
                                     <th>제목</th>
                                     <td class="text-align-left text-indent text-strong text-orange" colspan="3">
-                                        <%=request.getAttribute("subject")%>
+                                      ${notice.subject}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>작성일</th>
                                     <td class="text-align-left text-indent" colspan="3">
-                                        <%=request.getAttribute("date")%>
+                                        ${notice.date}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>작성자</th>
-                                    <td><%=request.getAttribute("id")%>
+                                    <td>   ${notice.id}
                                     </td>
                                     <th>조회수</th>
-                                    <td><%=request.getAttribute("hit")%>
+                                    <td>   ${notice.hit}
                                     </td>
                                 </tr>
                                 <tr>
@@ -174,7 +174,7 @@
                                 </tr>
                                 <tr class="content">
                                     <td colspan="4">
-                                        <%=request.getAttribute("content")%>
+                                        ${notice.content}
                                     </td>
                                 </tr>
                             </tbody>
