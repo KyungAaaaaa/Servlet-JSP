@@ -67,6 +67,6 @@ public class NoticeListController extends HttpServlet {
             throwables.printStackTrace();
         }
 
-        request.getRequestDispatcher("/notice/list.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/notice/list.jsp").forward(request, response);
     }
 }
