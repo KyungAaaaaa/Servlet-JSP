@@ -1,37 +1,6 @@
-<%@ page import="java.sql.*" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<%
-    Connection con = null;
-
-    String server = "localhost"; // MySQL 서버 주소
-    String database = "todagtodag"; // MySQL DATABASE 이름
-    String user_name = "root"; //  MySQL 서버 아이디
-    String password = "123456"; // MySQL 서버 비밀번호
-
-    // 1.드라이버 로딩
-    try {
-        Class.forName("com.mysql.jdbc.Driver");
-    } catch (ClassNotFoundException e) {
-        System.err.println(" !! <JDBC error> Driver load error: " + e.getMessage());
-        e.printStackTrace();
-    }
-
-    // 2.연결
-    try {
-        con = DriverManager.getConnection("jdbc:mysql://" + server + "/" + database + "?useSSL=false", user_name, password);
-        System.out.println("connect.");
-    } catch (SQLException e) {
-        System.err.println("con error:" + e.getMessage());
-        e.printStackTrace();
-    }
-
-    Statement stmt = con.createStatement();
-    String query = "Select * from notice;";
-    ResultSet rs = stmt.executeQuery(query);
-
-
-%>
+<%@ page import="java.util.List" %>
+<%@ page import="entity.Notice" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
 
@@ -206,25 +175,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-
                                 <%
-                                    while (rs.next()) {
-                                        System.out.println();
-
-
+                                    List<Notice> list = (List<Notice>) request.getAttribute("noticeList");
+                                    for (Notice n : list) {
+                                        //지역변수는 el에서 사용불가
+                                        pageContext.setAttribute("n", n);
                                 %>
                                 <tr>
-                                    <td><%=rs.getInt("num")%>
+                                    <td>${n.num}
                                     </td>
                                     <td class="title indent text-align-left"><a
-                                            href="detail?id=<%=rs.getInt("num")%>"><%=rs.getString("subject")%>></a>
+                                            href="detail?id=${n.num}"> ${n.subject}</a>
                                     </td>
-                                    <td><%=rs.getString("id")%>
+                                    <td>${n.id}
                                     </td>
                                     <td>
-                                        <%=rs.getString("regist_day")%>
+                                        ${n.date}
                                     </td>
-                                    <td><%=rs.getInt("hit")%>
+                                    <td> ${n.hit}
                                     </td>
                                 </tr>
                                 <% }%>
@@ -300,17 +268,3 @@
     </body>
 
 </html>
-
-<%
-
-    // 3.해제
-    try {
-        if (rs != null)
-            rs.close();
-        if (stmt != null)
-            stmt.close();
-        if (con != null)
-            con.close();
-    } catch (SQLException e) {
-    }
-%>

@@ -6,8 +6,18 @@ public class Notice {
     private String id;
     private int hit;
     private String content;
+    private int num;
 
     public Notice() {
+    }
+
+    public Notice(String subject, String date, String id, int hit, String content, int num) {
+        this.subject = subject;
+        this.date = date;
+        this.id = id;
+        this.hit = hit;
+        this.content = content;
+        this.num = num;
     }
 
     public Notice(String subject, String date, String id, int hit, String content) {
@@ -40,6 +50,14 @@ public class Notice {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public int getHit() {
