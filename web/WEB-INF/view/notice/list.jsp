@@ -99,11 +99,8 @@
         <!-- --------------------------- <body> --------------------------------------- -->
         <div id="body">
             <div class="content-container clearfix">
-
                 <!-- --------------------------- aside --------------------------------------- -->
                 <!-- aside 부분 -->
-
-
                 <aside class="aside">
                     <h1>고객센터</h1>
 
@@ -114,10 +111,8 @@
                             <li><a class="" href="/customer/faq">자주하는 질문</a></li>
                             <li><a class="" href="/customer/question">수강문의</a></li>
                             <li><a class="" href="/customer/event">이벤트</a></li>
-
                         </ul>
                     </nav>
-
 
                     <nav class="menu">
                         <h1>협력업체</h1>
@@ -126,10 +121,8 @@
                                                                                        alt="노트펍스"/></a></li>
                             <li><a target="_blank" href="http://www.namoolab.com"><img src="/images/namoolab.png"
                                                                                        alt="나무랩연구소"/></a></li>
-
                         </ul>
                     </nav>
-
                 </aside>
                 <!-- --------------------------- main --------------------------------------- -->
 
@@ -182,9 +175,9 @@
                                 <%--                                        //지역변수는 el에서 사용불가--%>
                                 <%--                                        pageContext.setAttribute("n", n);--%>
                                 <%--                                %>--%>
-                                <c:forEach var="n" items="${noticeList}">
+                                <c:forEach var="n" items="${noticeList}" end="3" varStatus="st">
                                     <tr>
-                                        <td>${n.num}
+                                        <td>${st.index+1} / ${n.num}
                                         </td>
                                         <td class="title indent text-align-left"><a
                                                 href="detail?id=${n.num}"> ${n.subject}</a>
@@ -206,30 +199,39 @@
                         <h3 class="hidden">현재 페이지</h3>
                         <div><span class="text-orange text-strong">1</span> / 1 pages</div>
                     </div>
-
+                    <%-- set : 변수 선언 태그라이브러리--%>
+                    <%-- param.p : get방식의 파라미터 p 값 --%>
+                    <c:set var="page" value="${(param.p==null) ? 1:param.p}"/>
+                    <c:set var="startNum" value="${page-(page-1)%5}"/>
+                    <c:set var="lastNum" value="23"/>
                     <div class="margin-top align-center pager">
-
                         <div>
-
-
-                            <span class="btn btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</span>
-
+                            <c:if test="${startNum==1}">
+                                <span class="btn btn-prev" onclick="alert('이전 페이지가 없습니다.');">이전</span>
+                            </c:if>
+                            <c:if test="${startNum>1}">
+                                <a class="btn btn-prev" href="?p=${startNum-1}&t=&q=">이전</a>
+                            </c:if>
                         </div>
-                        <ul class="-list- center">
-                            <li><a class="-text- orange bold" href="?p=1&t=&q=">1</a></li>
 
+
+                        <ul class="-list- center">
+                            <c:forEach begin="0" end="4" var="i">
+                                <li><a class="-text- orange bold" href="?p=${i+startNum}&t=&q=">${i+startNum}</a></li>
+                            </c:forEach>
                         </ul>
                         <div>
-
-
-                            <span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
-
+                            <%-- if문에 else가 존재하지않는다 --%>
+                            <c:if test="${5+startNum<lastNum}">
+                                <a class="btn btn-next" href="?p=${5+startNum}&t=&q=">다음</a>
+                            </c:if>
+                            <c:if test="${5+startNum>lastNum}">
+                                <span class="btn btn-next" onclick="alert('다음 페이지가 없습니다.');">다음</span>
+                            </c:if>
                         </div>
-
                     </div>
+
                 </main>
-
-
             </div>
         </div>
 
