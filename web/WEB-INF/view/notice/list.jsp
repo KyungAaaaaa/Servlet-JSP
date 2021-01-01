@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="entity.Notice" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 
@@ -51,7 +52,6 @@
                     </nav>
 
                     <div class="sub-menu">
-
                         <section id="search-form">
                             <h1>강좌검색 폼</h1>
                             <form action="/course">
@@ -77,7 +77,8 @@
                             <h1 class="hidden">고객메뉴</h1>
                             <ul class="linear-layout">
                                 <li><a href="/member/home"><img src="/images/txt-mypage.png" alt="마이페이지"/></a></li>
-                                <li><a href="/WEB-INF/view/notice/list.html"><img src="/images/txt-customer.png" alt="고객센터"/></a>
+                                <li><a href="/WEB-INF/view/notice/list.html"><img src="/images/txt-customer.png"
+                                                                                  alt="고객센터"/></a>
                                 </li>
                             </ul>
                         </nav>
@@ -175,27 +176,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <%
-                                    List<Notice> list = (List<Notice>) request.getAttribute("noticeList");
-                                    for (Notice n : list) {
-                                        //지역변수는 el에서 사용불가
-                                        pageContext.setAttribute("n", n);
-                                %>
-                                <tr>
-                                    <td>${n.num}
-                                    </td>
-                                    <td class="title indent text-align-left"><a
-                                            href="detail?id=${n.num}"> ${n.subject}</a>
-                                    </td>
-                                    <td>${n.id}
-                                    </td>
-                                    <td>
-                                        ${n.date}
-                                    </td>
-                                    <td> ${n.hit}
-                                    </td>
-                                </tr>
-                                <% }%>
+                                <%--                                <%--%>
+                                <%--                                    List<Notice> list = (List<Notice>) request.getAttribute("noticeList");--%>
+                                <%--                                    for (Notice n : list) {--%>
+                                <%--                                        //지역변수는 el에서 사용불가--%>
+                                <%--                                        pageContext.setAttribute("n", n);--%>
+                                <%--                                %>--%>
+                                <c:forEach var="n" items="${noticeList}">
+                                    <tr>
+                                        <td>${n.num}
+                                        </td>
+                                        <td class="title indent text-align-left"><a
+                                                href="detail?id=${n.num}"> ${n.subject}</a>
+                                        </td>
+                                        <td>${n.id}
+                                        </td>
+                                        <td>
+                                                ${n.date}
+                                        </td>
+                                        <td> ${n.hit}
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>
