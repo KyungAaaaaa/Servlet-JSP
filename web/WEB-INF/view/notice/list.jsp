@@ -2,6 +2,7 @@
 <%@ page import="entity.Notice" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -78,7 +79,7 @@
                             <ul class="linear-layout">
                                 <li><a href="/member/home"><img src="/images/txt-mypage.png" alt="마이페이지"/></a></li>
                                 <li><a href="/notice/list"><img src="/images/txt-customer.png"
-                                                                                  alt="고객센터"/></a>
+                                                                alt="고객센터"/></a>
                                 </li>
                             </ul>
                         </nav>
@@ -185,9 +186,13 @@
                                         <td>${n.id}
                                         </td>
                                         <td>
-                                                ${n.date}
+                                                <%-- m 은 시간의 분을 나타냄, M이 월--%>
+                                            <fmt:formatDate value="${notice.date}" pattern="yyyy-MM-dd"/>
+
                                         </td>
-                                        <td> ${n.hit}
+                                        <td>
+                                            <fmt:formatNumber value="${n.hit}"/>
+                                                <%-- <fmt:formatNumber type="number" pattern="#,##" value="${n.hit}"/> --%>
                                         </td>
                                     </tr>
                                 </c:forEach>

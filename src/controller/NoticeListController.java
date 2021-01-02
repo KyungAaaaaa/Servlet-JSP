@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet("/notice/list")
@@ -54,7 +55,7 @@ public class NoticeListController extends HttpServlet {
             while (rs.next()) {
                 System.out.println();
                 String subject = rs.getString("subject");
-                String date = rs.getString("regist_day");
+                Date date = rs.getDate("regist_day");
                 String id = rs.getString("id");
                 int hit = rs.getInt("hit");
                 int num = rs.getInt("num");

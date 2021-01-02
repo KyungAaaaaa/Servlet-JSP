@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
+import java.util.Date;
 
 @WebServlet("/notice/detail")
 public class NoticeDetailController extends HttpServlet {
@@ -50,13 +51,13 @@ public class NoticeDetailController extends HttpServlet {
 
 
             String subject = rs.getString("subject");
-            String date = rs.getString("regist_day");
+            Date date = rs.getDate("regist_day");
             String id = rs.getString("id");
             int hit = rs.getInt("hit");
             String content = rs.getString("content");
             String file = rs.getString("file_name");
 
-            Notice notice = new Notice(subject, date, id, hit, content,num,file);
+            Notice notice = new Notice(subject, date, id, hit, content, num, file);
             request.setAttribute("notice", notice);
             // 3.해제
             try {
@@ -74,7 +75,6 @@ public class NoticeDetailController extends HttpServlet {
             request.setAttribute("hit", hit);
             request.setAttribute("content", content);
             request.setAttribute("file", file);
-            pstmt = con.prepareStatement(query);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

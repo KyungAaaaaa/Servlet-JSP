@@ -1,8 +1,10 @@
 package entity;
 
+import java.util.Date;
+
 public class Notice {
     private String subject;
-    private String date;
+    private Date date;
     private String id;
     private int hit;
     private String content;
@@ -12,7 +14,7 @@ public class Notice {
     public Notice() {
     }
 
-    public Notice(String subject, String date, String id, int hit, String content, int num, String file) {
+    public Notice(String subject, Date date, String id, int hit, String content, int num, String file) {
         this.subject = subject;
         this.date = date;
         this.id = id;
@@ -20,14 +22,6 @@ public class Notice {
         this.content = content;
         this.num = num;
         this.file = file;
-    }
-
-    public Notice(String subject, String date, String id, int hit, String content) {
-        this.subject = subject;
-        this.date = date;
-        this.id = id;
-        this.hit = hit;
-        this.content = content;
     }
 
     public String getSubject() {
@@ -38,11 +32,11 @@ public class Notice {
         this.subject = subject;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
