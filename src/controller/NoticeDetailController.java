@@ -54,8 +54,9 @@ public class NoticeDetailController extends HttpServlet {
             String id = rs.getString("id");
             int hit = rs.getInt("hit");
             String content = rs.getString("content");
+            String file = rs.getString("file_name");
 
-            Notice notice = new Notice(subject, date, id, hit, content);
+            Notice notice = new Notice(subject, date, id, hit, content,num,file);
             request.setAttribute("notice", notice);
             // 3.해제
             try {
@@ -72,6 +73,7 @@ public class NoticeDetailController extends HttpServlet {
             request.setAttribute("id", id);
             request.setAttribute("hit", hit);
             request.setAttribute("content", content);
+            request.setAttribute("file", file);
             pstmt = con.prepareStatement(query);
         } catch (SQLException throwables) {
             throwables.printStackTrace();

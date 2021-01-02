@@ -7,17 +7,19 @@ public class Notice {
     private int hit;
     private String content;
     private int num;
+    private String file;
 
     public Notice() {
     }
 
-    public Notice(String subject, String date, String id, int hit, String content, int num) {
+    public Notice(String subject, String date, String id, int hit, String content, int num, String file) {
         this.subject = subject;
         this.date = date;
         this.id = id;
         this.hit = hit;
         this.content = content;
         this.num = num;
+        this.file = file;
     }
 
     public Notice(String subject, String date, String id, int hit, String content) {
@@ -74,6 +76,14 @@ public class Notice {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
     }
 
     @Override

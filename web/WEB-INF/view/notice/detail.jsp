@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -76,7 +76,7 @@
                             <h1 class="hidden">고객메뉴</h1>
                             <ul class="linear-layout">
                                 <li><a href="/member/home"><img src="/images/txt-mypage.png" alt="마이페이지"/></a></li>
-                                <li><a href="/WEB-INF/view/notice/list.html"><img src="/images/txt-customer.png" alt="고객센터"/></a>
+                                <li><a href="/notice/list"><img src="/images/txt-customer.png" alt="고객센터"/></a>
                                 </li>
                             </ul>
                         </nav>
@@ -151,7 +151,7 @@
                                 <tr>
                                     <th>제목</th>
                                     <td class="text-align-left text-indent text-strong text-orange" colspan="3">
-                                      ${notice.subject}
+                                        ${notice.subject}
                                     </td>
                                 </tr>
                                 <tr>
@@ -162,15 +162,20 @@
                                 </tr>
                                 <tr>
                                     <th>작성자</th>
-                                    <td>   ${notice.id}
+                                    <td> ${notice.id}
                                     </td>
                                     <th>조회수</th>
-                                    <td>   ${notice.hit}
+                                    <td> ${notice.hit}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>첨부파일</th>
-                                    <td colspan="3"></td>
+                                    <td colspan="3">
+                                        <c:forTokens var="fileName" items=" ${notice.file}" delims="," varStatus="st">
+                                            <a href="${fileName}">${fileName}</a>
+                                            <c:if test="${!st.last}"> / </c:if>
+                                        </c:forTokens>
+                                    </td>
                                 </tr>
                                 <tr class="content">
                                     <td colspan="4">
@@ -182,7 +187,7 @@
                     </div>
 
                     <div class="margin-top text-align-center">
-                        <a class="btn btn-list" href="list.html">목록</a>
+                        <a class="btn btn-list" href="list">목록</a>
                     </div>
 
                     <div class="margin-top">

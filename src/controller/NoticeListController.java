@@ -59,8 +59,9 @@ public class NoticeListController extends HttpServlet {
                 int hit = rs.getInt("hit");
                 int num = rs.getInt("num");
                 String content = rs.getString("content");
+                String file = rs.getString("file_name");
 
-                noticeList.add(new Notice(subject, date, id, hit, content,num));
+                noticeList.add(new Notice(subject, date, id, hit, content, num, file));
             }
             request.setAttribute("noticeList", noticeList);
         } catch (SQLException throwables) {

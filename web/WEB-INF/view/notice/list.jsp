@@ -77,7 +77,7 @@
                             <h1 class="hidden">고객메뉴</h1>
                             <ul class="linear-layout">
                                 <li><a href="/member/home"><img src="/images/txt-mypage.png" alt="마이페이지"/></a></li>
-                                <li><a href="/WEB-INF/view/notice/list.html"><img src="/images/txt-customer.png"
+                                <li><a href="/notice/list"><img src="/images/txt-customer.png"
                                                                                   alt="고객센터"/></a>
                                 </li>
                             </ul>
@@ -175,7 +175,7 @@
                                 <%--                                        //지역변수는 el에서 사용불가--%>
                                 <%--                                        pageContext.setAttribute("n", n);--%>
                                 <%--                                %>--%>
-                                <c:forEach var="n" items="${noticeList}" end="3" varStatus="st">
+                                <c:forEach var="n" items="${noticeList}" varStatus="st">
                                     <tr>
                                         <td>${st.index+1} / ${n.num}
                                         </td>
