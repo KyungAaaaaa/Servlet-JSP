@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
@@ -173,7 +174,12 @@
                                     <th>첨부파일</th>
                                     <td colspan="3">
                                         <c:forTokens var="fileName" items=" ${notice.file}" delims="," varStatus="st">
-                                            <a href="${fileName}">${fileName}</a>
+                                            <c:set var="style" value=""/>
+                                            <%-- 첨부파일의 확장자가 jpg면 스타일 적용--%>
+                                            <c:if test="${fn:endsWith(fileName, 'jpg')}">
+                                                <c:set var="style" value="font-wehigt:bold; color:red;"/>
+                                            </c:if>
+                                            <a href="${fileName}" style="${style}">${fn:toUpperCase(fileName)}</a>
                                             <c:if test="${!st.last}"> / </c:if>
                                         </c:forTokens>
                                     </td>
