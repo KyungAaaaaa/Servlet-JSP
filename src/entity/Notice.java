@@ -9,9 +9,19 @@ public class Notice {
     private int hit;
     private String content;
     private int num;
+    private int no;
     private String file;
 
-    public Notice() {
+
+    public Notice(String subject, Date date, String id, int hit, String content, int num, int no, String file) {
+        this.subject = subject;
+        this.date = date;
+        this.id = id;
+        this.hit = hit;
+        this.content = content;
+        this.num = num;
+        this.no = no;
+        this.file = file;
     }
 
     public Notice(String subject, Date date, String id, int hit, String content, int num, String file) {

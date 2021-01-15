@@ -178,7 +178,7 @@
                                 <%--                                %>--%>
                                 <c:forEach var="n" items="${noticeList}" varStatus="st">
                                     <tr>
-                                        <td>${st.index+1} / ${n.num}
+                                        <td>${st.index+1}
                                         </td>
                                         <td class="title indent text-align-left"><a
                                                 href="detail?id=${n.num}"> ${n.subject}</a>

@@ -2,6 +2,7 @@ package controller;
 
 import com.mysql.jdbc.Connection;
 import entity.Notice;
+import service.NoticeService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,53 +22,33 @@ import java.util.List;
 public class NoticeListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        NoticeService service = new NoticeService();
+        String field = "";
+        String query = null;
+        int page = 1;
+        if (request.getParameter("p") != null)
+            page = Integer.parseInt(request.getParameter("p"));
 
-        Connection con = null;
-
-        String server = "localhost"; // MySQL 서버 주소
-        String database = "todagtodag"; // MySQL DATABASE 이름
-        String user_name = "root"; //  MySQL 서버 아이디
-        String password = "123456"; // MySQL 서버 비밀번호
-        List<Notice> noticeList = new ArrayList<>();
-        // 1.드라이버 로딩
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            System.err.println(" !! <JDBC error> Driver load error: " + e.getMessage());
-            e.printStackTrace();
-        }
-
-        // 2.연결
-        try {
-            con = (Connection) DriverManager.getConnection("jdbc:mysql://" + server + "/" + database + "?useSSL=false", user_name, password);
-            System.out.println("connect.");
-        } catch (SQLException e) {
-            System.err.println("con error:" + e.getMessage());
-            e.printStackTrace();
-        }
-
-        Statement stmt = null;
-        try {
-
-            stmt = con.createStatement();
-            String query = "Select * from notice;";
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {
-                System.out.println();
-                String subject = rs.getString("subject");
-                Date date = rs.getDate("regist_day");
-                String id = rs.getString("id");
-                int hit = rs.getInt("hit");
-                int num = rs.getInt("num");
-                String content = rs.getString("content");
-                String file = rs.getString("file_name");
-
-                noticeList.add(new Notice(subject, date, id, hit, content, num, file));
+        if (request.getParameter("f") != null) {
+            switch (request.getParameter("f")) {
+                case "title":
+                    field = "subject";
+                    break;
+                case "writerId":
+                    field = "id";
+                    break;
+                default:
+                    break;
             }
-            request.setAttribute("noticeList", noticeList);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        } else
+            field = "subject";
+
+        if (request.getParameter("q") != null)
+            query = request.getParameter("q");
+
+
+        List<Notice> noticeList = service.getNoticeList();
+        request.setAttribute("noticeList", noticeList);
 
         request.getRequestDispatcher("/WEB-INF/view/notice/list.jsp").forward(request, response);
     }
